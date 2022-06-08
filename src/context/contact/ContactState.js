@@ -21,23 +21,25 @@ const ContactState = (props) => {
                 name: "Ali",
                 email: "ali@gmail.com",
                 phone: "111-111-1111",
-                relationship: "Personal",
+                relationship: "personal",
             },
             {
                 id: 2,
                 name: "Hadi",
                 email: "hadi@gmail.com",
                 phone: "222-222-2222",
-                relationship: "Professional",
+                relationship: "personal",
             },
             {
                 id: 3,
                 name: "Atif",
                 email: "atif@gmail.com",
                 phone: "333-333-3333",
-                relationship: "Professional",
+                relationship: "professional",
             },
         ],
+        current: null,
+        filtered: null
     };
 
     const [state, dispatch] = useReducer(contactReducer, initialState);
@@ -48,22 +50,36 @@ const ContactState = (props) => {
         dispatch({ type: ADD_CONTACT, payload: contact });
     };
     // Delete Contact
-    const deleteContact = () => {};
+    const deleteContact = id => {
+        dispatch({ type: DELETE_CONTACT, payload: id })
+    }
     // Update Contact
-    const updateContact = () => {};
+    const updateContact = contact => {
+        dispatch({ type: UPDATE_CONTACT, payload: contact })
+    }
     // Set Current Contact
-    const setCurrent = () => {};
+    const setCurrent = contact => {
+        dispatch({ type: SET_CURRENT, payload: contact })
+    }
     // Clear Current Contact
-    const clearCurrent = () => {};
+    const clearCurrent = () => {
+        dispatch({ type: CLEAR_CURRENT })
+    }
     // Filter Contacts
-    const filterContacts = () => {};
+    const filterContacts = text => {
+        dispatch({ type: FILTER_CONTACTS, payload: text })
+    }
     // Clear Filter
-    const clearFilter = () => {};
+    const clearFilter = () => {
+        dispatch({ type: CLEAR_FILTER })
+    }
 
     return (
         <contactContext.Provider
             value={{
                 contacts: state.contacts,
+                current: state.current,
+                filtered: state.filtered,
                 addContact,
                 deleteContact,
                 updateContact,

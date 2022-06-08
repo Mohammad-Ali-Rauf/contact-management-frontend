@@ -14,23 +14,26 @@ import Contact from './components/pages/Contact';
 
 // Import Context State
 import ContactState from './context/contact/ContactState';
+import AuthState from './context/auth/AuthState';
 
 const App = () => {
   return (
-    <ContactState>
-      <Router>
-        <>
-          <Navbar />
-          <div className="conatiner">
-            <Routes>
-              <Route exact path='/' element={<Home />} />
-              <Route exact path='/about' element={<About />} />
-              <Route exact path='/contact' element={<Contact />} />
-            </Routes>
-          </div>
-        </>
-      </Router>
-    </ContactState>
+    <AuthState>
+      <ContactState>
+        <Router>
+          <>
+            <Navbar />
+            <div className="conatiner">
+              <Routes>
+                <Route exact path='/' element={<Home />} />
+                <Route exact path='/about' element={<About />} />
+                <Route exact path='/contact' element={<Contact />} />
+              </Routes>
+            </div>
+          </>
+        </Router>
+      </ContactState>
+    </AuthState>
   );
 }
 
