@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
-import authContext from "./authContext";
-import authReducer from "./authReducer";
+import React, { useReducer } from 'react';
+import axios from 'axios';
+import authContext from './authContext';
+import authReducer from './authReducer';
 
 import {
     REGISTER_SUCCESS,
@@ -10,8 +11,8 @@ import {
     USER_LOADED,
     AUTH_ERROR,
     LOGOUT,
-    CLEAR_ERRORS
-} from "../types";
+    CLEAR_ERRORS,
+} from '../types';
 
 const AuthState = (props) => {
     const initialState = {
@@ -20,29 +21,47 @@ const AuthState = (props) => {
         loading: true,
         user: null,
         error: null,
-    }
+    };
 
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     // Load User
     const loadUser = () => {
-
+        
     }
     // Register User
-    const regsiterUser = () => {
-        
-    };
+    const registerUser = async formData => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        try {
+            const res = await axios.post('/api/users', formData, config);
+            dispatch({ type: REGISTER_SUCCESS, payload: res.data })
+        } catch (err) {
+            dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg })
+        }
+    }
     // Login User
-    const loginUser = () => {
-
+    const loginUser = async formData => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        try {
+            const res = await axios.post('/api/users', formData, config);
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data })
+        } catch (err) {
+            dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg })
+        }
     }
     // Logout User
-    const logoutUser = () => {
-        
-    }
+    const logoutUser = () => {};
     // Clear Errors
     const clearErrors = () => {
-
+        dispatch({ type: CLEAR_ERRORS })
     }
 
     return (
@@ -54,7 +73,7 @@ const AuthState = (props) => {
                 user: state.user,
                 error: state.error,
                 loadUser,
-                regsiterUser,
+                registerUser,
                 loginUser,
                 logoutUser,
                 clearErrors,

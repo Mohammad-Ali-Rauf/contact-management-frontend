@@ -16,76 +16,27 @@ const Contact = () => {
   };
 
   return (
-    <form
-      ref={form}
-      onSubmit={sendMessage}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: "100px",
-        marginLeft: "-400px",
-        fontSize: "18px",
-      }}>
-      <label className='form-text' htmlFor='name'>
-        Name
-      </label>
-      <input
-        name='name'
-        type='text'
-        placeholder='Name'
-        style={{
-          width: "400px",
-          marginLeft: "350px",
-          marginTop: "10px",
-        }}
-      />
-
-      <label className='form-text' htmlFor='name'>
-        Email
-      </label>
-      <input
-        name='email'
-        type='email'
-        placeholder='Email'
-        style={{
-          width: "400px",
-          marginLeft: "350px",
-          marginTop: "10px",
-        }}
-      />
-
-      <label className='form-text' htmlFor='name'>
-        Subject
-      </label>
-      <input
-        name='subject'
-        type='text'
-        placeholder='Subject'
-        style={{
-          width: "400px",
-          marginLeft: "350px",
-          marginTop: "10px",
-        }}
-      />
-
-      <textarea
-        name='message'
-        rows='6'
-        placeholder='Your Message'
-        style={{
-          width: "400px",
-          marginLeft: "350px",
-          marginTop: "10px",
-        }}
-      />
-      <input
-        style={{ marginLeft: "330px", marginTop: "20px" }}
-        className='btn btn-primary'
-        type='submit'
-        Send
-      />
-    </form>
+    <div className="form-container">
+      <form ref={form} onSubmit={sendMessage}>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" placeholder="Name" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" placeholder="Email" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="subject">Subject</label>
+          <input type="text" name="subject" placeholder="Subject" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="message">Message</label>
+          <textarea rows={6} cols={35} type="text" name="message" placeholder="Your Message" />
+        </div>
+        <button className="btn btn-primary btn-block">Send</button>
+      </form>
+    </div>
   );
 };
 
