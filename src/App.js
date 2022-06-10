@@ -15,10 +15,18 @@ import About from './components/pages/About';
 import Alerts from './components/layout/Alerts';
 import Contact from './components/pages/Contact';
 
+// Function to vaildate token
+import setAuthToken from './utils/setAuthToken';
+
 // Import Context State
 import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
+
+// Call the function setAuthtoken if token is exist in request headers
+if(localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
