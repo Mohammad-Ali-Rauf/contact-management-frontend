@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -7,7 +8,20 @@ const Register = () => {
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
-    const { loginUser } = authContext;
+    const { loginUser, error, clearErrors, isAuthenticated } = authContext;
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            navigate('/')
+        }
+
+        if(error === 'Incorrect Password') {
+            setAlert(error, 'danger');
+            clearErrors();
+        }
+    }, [error, isAuthenticated])
 
     const [user, setUser] = useState({
         email: '',
@@ -20,15 +34,10 @@ const Register = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        if( email === ''  || password === '') {
+        if( email === ''  || password === '' ) {
             setAlert('All Fields are Required', 'danger')
-        } else if (password !== user.password) {
-            setAlert('Incorrect Password', 'danger')
         } else {
-            loginUser({
-                email,
-                password
-            });
+            loginUser({ email, password });
         }
     }
 

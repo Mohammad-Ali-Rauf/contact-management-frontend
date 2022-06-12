@@ -10,6 +10,7 @@ const Navbar = ({ title, icon }) => {
       </h1>
       <ul>
         <li>
+          <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
@@ -21,12 +22,12 @@ const Navbar = ({ title, icon }) => {
 }
 
 Navbar.defaultProps = {
-    title: <Link to="/">Contact Management</Link>,
+    title: 'Contact Management',
     icon: 'fa-regular fa-address-card',
 }
 
 Navbar.propTypes = {
-    title: PropTypes.element.isRequired,
+    title: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
 }
 

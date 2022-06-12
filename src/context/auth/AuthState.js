@@ -48,6 +48,7 @@ const AuthState = (props) => {
             }
         }
         try {
+            // eslint-disable-next-line
             const res = await axios.post('/api/users', formData, config);
             dispatch({ type: REGISTER_SUCCESS, payload: res.data });
             loadUser();
