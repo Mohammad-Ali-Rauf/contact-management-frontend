@@ -1,32 +1,22 @@
-import React from 'react';
-
-// Routing
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Import Styles
-import './App.css';
-
-// Import Components
-import Navbar from './components/layout/Navbar';
-import Home from './components/pages/Home';
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
-import About from './components/pages/About';
-import Alerts from './components/layout/Alerts';
-import Contact from './components/pages/Contact';
-
-// Function to vaildate token
-import setAuthToken from './utils/setAuthToken';
-
-// Import Context State
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
+import Navbar from './components/layout/Navbar';
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import Contact from './components/pages/Contact';
+import Alerts from './components/layout/Alerts';
+import setAuthToken from './utils/setAuthToken'
+import PrivateRoute from './components/routing/PrivateRoute';
+import './App.css';
 
-// Call the function setAuthtoken if token is exist in request headers
 if(localStorage.token) {
   setAuthToken(localStorage.token);
-}
+};
 
 const App = () => {
   return (
@@ -34,19 +24,19 @@ const App = () => {
       <ContactState>
         <AlertState>
           <Router>
-            <>
+            <Fragment>
               <Navbar />
-              <div className="conatiner">
+              <div className="container">
                 <Alerts />
-                <Routes>
-                  <Route exact path='/' element={<Home />} />
-                  <Route exact path='/about' element={<About />} />
-                  <Route exact path='/register' element={<Register />} />
-                  <Route exact path='/login' element={<Login />} />
-                  <Route exact path='/contact' element={<Contact />} />
-                </Routes>
+                <Switch>
+                  <PrivateRoute exact path='/' component={Home} />
+                  <Route exact path='/about' component={About} />
+                  <Route exact path='/register' component={Register} />
+                  <Route exact path='/login' component={Login} />
+                  <Route exact path='/contact' component={Contact} />
+                </Switch>
               </div>
-            </>
+            </Fragment>
           </Router>
         </AlertState>
       </ContactState>
