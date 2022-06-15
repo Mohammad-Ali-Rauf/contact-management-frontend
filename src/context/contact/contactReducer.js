@@ -7,8 +7,7 @@ import {
     UPDATE_CONTACT,
     FILTER_CONTACTS,
     CLEAR_CONTACTS,
-    CLEAR_FILTER,
-    CONTACT_ERROR
+    CLEAR_FILTER
 } from '../types';
 
 // eslint-disable-next-line
